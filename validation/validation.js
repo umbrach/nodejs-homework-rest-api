@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { ValidationError } = require("../helpers/errors");
 
 module.exports = {
   schemaPostContact: (req, res, next) => {
@@ -15,7 +16,7 @@ module.exports = {
     const validationResult = schema.validate(req.body);
 
     if (validationResult.error) {
-      return res.status(400).json({ message: "missing fields" });
+      next(new ValidationError(validationResult.error.message));
     }
     next();
   },
@@ -32,7 +33,19 @@ module.exports = {
     const validationResult = schema.validate(req.body);
 
     if (validationResult.error) {
-      return res.status(400).json({ message: "missing fields or invalid data" });
+      next(new ValidationError(validationResult.error.message));
+    }
+    next();
+  },
+
+  schemaFavorite: (req, res, next) => {
+    const schema = Joi.object({
+      favorite: Joi.boolean().required(),
+    });
+    const validationResult = schema.validate(req.body);
+
+    if (validationResult.error) {
+      next(new ValidationError(validationResult.error.message));
     }
     next();
   },
