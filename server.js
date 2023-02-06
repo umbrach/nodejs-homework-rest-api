@@ -1,5 +1,5 @@
-const { connectMongoose } = require("./db/connection");
-const app = require("./app");
+const { connectMongoose } = require("./src/db/connection");
+const app = require("./src/app");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 8083;

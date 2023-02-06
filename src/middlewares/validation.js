@@ -49,4 +49,17 @@ module.exports = {
     }
     next();
   },
+
+  schemaAuthValidation: (req, res, next) => {
+    const schema = Joi.object({
+      email: Joi.string().email().required(),
+      password: Joi.string().min(4).required(),
+    });
+    const validationResult = schema.validate(req.body);
+
+    if (validationResult.error) {
+      next(new ValidationError(validationResult.error.message));
+    }
+    next();
+  },
 };
