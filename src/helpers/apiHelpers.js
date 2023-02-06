@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken')
 const { ValidationError, WrongParametersError } = require("./errors");
 
 const asyncWrapper = (controller) => {
@@ -13,4 +14,9 @@ const errorHandler = (err, req, res, next) => {
   res.status(500).json({ message: err.message });
 };
 
-module.exports = { asyncWrapper, errorHandler };
+const createToken = async (user) => {
+  const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+  return token;
+};
+
+module.exports = { asyncWrapper, errorHandler, createToken };

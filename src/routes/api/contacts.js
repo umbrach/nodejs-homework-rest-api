@@ -1,5 +1,8 @@
 const express = require("express");
 
+const { asyncWrapper } = require("../../helpers/apiHelpers");
+const { authMiddleware } = require("../../middlewares/authMiddleware");
+
 const {
   get,
   getById,
@@ -13,11 +16,11 @@ const {
   schemaPostContact,
   schemaPutContact,
   schemaFavorite,
-} = require("../../validation/validation");
+} = require("../../middlewares/validation");
 
 const router = express.Router();
 
-const { asyncWrapper } = require("../../helpers/apiHelpers");
+router.use(authMiddleware);
 
 router.get("/", asyncWrapper(get));
 
