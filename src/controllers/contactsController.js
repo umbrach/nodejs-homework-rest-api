@@ -8,7 +8,9 @@ const {
 } = require("../service/contactsService");
 
 const get = async (req, res, next) => {
-  const contacts = await getContacts();
+  let { page, limit } = req.query;
+  const contacts = await getContacts({page, limit});
+
   res.json(contacts);
 };
 

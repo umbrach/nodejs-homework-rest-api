@@ -1,8 +1,10 @@
 const Contact = require("../db/contactModel");
 const { WrongParametersError } = require("../helpers/errors");
 
-const getContacts = async () => {
-  const data = await Contact.find({});
+const getContacts = async ({page, limit}) => {
+  const data = await Contact.find({})
+    .skip(page)
+    .limit(limit);
   return data;
 };
 
