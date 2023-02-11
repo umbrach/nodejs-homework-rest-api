@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
 const { ValidationError, WrongParametersError } = require("./errors");
 
 const asyncWrapper = (controller) => {
@@ -19,4 +20,13 @@ const createToken = async (user) => {
   return token;
 };
 
-module.exports = { asyncWrapper, errorHandler, createToken };
+const isPathExist = async (path) => {
+  try {
+    await fs.access(path);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+module.exports = { asyncWrapper, errorHandler, createToken, isPathExist };

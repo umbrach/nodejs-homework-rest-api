@@ -3,8 +3,8 @@ const {
   login,
   logout,
   current,
+  changeAvatar,
 } = require("../service/authService");
-
 
 const registrationController = async (req, res) => {
   const { email, password } = req.body;
@@ -38,9 +38,19 @@ const currentController = async (req, res) => {
   res.status(200).json({ email, subscription });
 };
 
+const avatarController = async (req, res) => {
+  const [, token] = req.headers["authorization"].split(" ");
+
+  const {email, subscription, _id } = await current(token);
+  const avatarURL = await changeAvatar(_id, req.file);
+
+  res.status(200).json({ avatarURL });
+};
+
 module.exports = {
   registrationController,
   loginController,
   logoutController,
   currentController,
+  avatarController,
 };
