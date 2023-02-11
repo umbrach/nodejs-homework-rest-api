@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
+const path = require("path");
 const { NotAuthorizedError } = require("../helpers/errors");
 const User = require("../db/userModel");
 
@@ -26,4 +28,17 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
-module.exports = { authMiddleware };
+const upload = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.resolve("./tmp"));
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const uploadMiddleware = multer({
+  storage: upload,
+});
+
+module.exports = { authMiddleware, uploadMiddleware };
