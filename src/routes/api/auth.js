@@ -4,8 +4,7 @@ const { asyncWrapper } = require("../../helpers/apiHelpers");
 const {
   authMiddleware,
   uploadMiddleware,
-  resendVerificationMiddleware,
-} = require("../../middlewares/authMiddleware");
+  } = require("../../middlewares/authMiddleware");
 
 const {
   registrationController,
@@ -17,7 +16,10 @@ const {
   emailVerificationController,
 } = require("../../controllers/authController");
 
-const { schemaAuthValidation } = require("../../middlewares/validation");
+const {
+  schemaAuthValidation,
+  resendVerificationMiddleware,
+} = require("../../middlewares/validation");
 
 const router = express.Router();
 

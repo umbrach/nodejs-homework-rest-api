@@ -47,7 +47,7 @@ const verificationConfirmation = async (verificationToken) => {
     verify: false,
   });
   if (!user) {
-    throw new NotFoundError("Not found");
+    throw new NotFoundError("Already varified");
   }
   user.verify = true;
   user.verificationToken = "null";
