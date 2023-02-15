@@ -18,4 +18,17 @@ class NotAuthorizedError extends Error {
     this.status = 401;
   }
 }
-module.exports = { ValidationError, WrongParametersError, NotAuthorizedError };
+
+class NotFoundError extends Error {
+  constructor(message) {
+    super(message)
+    this.status = 404;
+  }
+}
+
+module.exports = {
+  ValidationError,
+  WrongParametersError,
+  NotAuthorizedError,
+  NotFoundError,
+};

@@ -41,4 +41,16 @@ const uploadMiddleware = multer({
   storage: upload,
 });
 
-module.exports = { authMiddleware, uploadMiddleware };
+const resendVerificationMiddleware = async (req, res, next) => {
+  const { email } = req.body;
+  if (!email) {
+    next(res.status(404).json("Missing field - email "));
+  }
+  next();
+};
+
+module.exports = {
+  authMiddleware,
+  uploadMiddleware,
+  resendVerificationMiddleware,
+};

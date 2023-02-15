@@ -4,6 +4,8 @@ const {
   logout,
   current,
   changeAvatar,
+  verificationConfirmation,
+  resendVerificationMail,
 } = require("../service/authService");
 
 const registrationController = async (req, res) => {
@@ -47,10 +49,26 @@ const avatarController = async (req, res) => {
   res.status(200).json({ avatarURL });
 };
 
+const emailVerificationController = async (req, res) => {
+  const { verificationToken } = req.params;
+  await verificationConfirmation(verificationToken);
+
+  res.status(200).json({ status: "Verification successfully completed" });
+};
+
+const resendVerificationController = async (req, res) => {
+  const { email } = req.body;
+  await resendVerificationMail(email);
+
+  res.status(200).json({ status: "Verification email sent" });
+};
+
 module.exports = {
   registrationController,
   loginController,
   logoutController,
   currentController,
   avatarController,
+  emailVerificationController,
+  resendVerificationController,
 };
