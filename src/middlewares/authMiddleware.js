@@ -41,4 +41,7 @@ const uploadMiddleware = multer({
   storage: upload,
 });
 
-module.exports = { authMiddleware, uploadMiddleware };
+module.exports = {
+  authMiddleware,
+  uploadMiddleware,
+};

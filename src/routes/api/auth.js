@@ -4,7 +4,7 @@ const { asyncWrapper } = require("../../helpers/apiHelpers");
 const {
   authMiddleware,
   uploadMiddleware,
-} = require("../../middlewares/authMiddleware");
+  } = require("../../middlewares/authMiddleware");
 
 const {
   registrationController,
@@ -12,9 +12,14 @@ const {
   logoutController,
   currentController,
   avatarController,
+  resendVerificationController,
+  emailVerificationController,
 } = require("../../controllers/authController");
 
-const { schemaAuthValidation } = require("../../middlewares/validation");
+const {
+  schemaAuthValidation,
+  resendVerificationMiddleware,
+} = require("../../middlewares/validation");
 
 const router = express.Router();
 
@@ -35,6 +40,17 @@ router.patch(
   authMiddleware,
   uploadMiddleware.single("avatar"),
   asyncWrapper(avatarController)
+);
+
+router.get(
+  "/verify/:verificationToken",
+  asyncWrapper(emailVerificationController)
+);
+
+router.post(
+  "/verify",
+  resendVerificationMiddleware,
+  asyncWrapper(resendVerificationController)
 );
 
 module.exports = router;

@@ -20,13 +20,4 @@ const createToken = async (user) => {
   return token;
 };
 
-const isPathExist = async (path) => {
-  try {
-    await fs.access(path);
-    return true;
-  } catch (error) {
-    return false;
-  }
-};
-
-module.exports = { asyncWrapper, errorHandler, createToken, isPathExist };
+module.exports = { asyncWrapper, errorHandler, createToken };
